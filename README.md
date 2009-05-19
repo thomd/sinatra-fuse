@@ -1,8 +1,8 @@
 ## Sinatra Fuse
 
-is a sinatra skeleton.
+Sinatra fuse is a sinatra start-up application.
 
-## Deploying on Dreamhost with Capistrano
+### Deploying on Dreamhost with Capistrano
 
 1. Add New Domain / Sub-Domain: `app.domain.tld`
 2. Check Ruby on Rails Passenger (mod_rails)
