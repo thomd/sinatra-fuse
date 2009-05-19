@@ -6,9 +6,12 @@ configure do
   set :sass, :style => :expanded
 end
 
+before do
+  # Before Filter
+end
 
 helpers do
-
+  # Helpers
 end
 
 
