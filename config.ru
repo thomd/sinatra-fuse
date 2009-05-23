@@ -1,14 +1,22 @@
+if ENV['RACK_ENV'] == 'production'
+  require 'vendor/rack/lib/rack'
+  require 'vendor/sinatra/lib/sinatra'
+  logfile = "log/sinatra.log"
+else
+  require 'rack'
+  require 'sinatra'
+  logfile = "sinatra.log"
+end
+ENV['GEM_HOME'] = "#{ENV['HOME']}/.gems"
 require 'rubygems'
-require 'vendor/rack/lib/rack'
-require 'vendor/sinatra/lib/sinatra'
+Gem.clear_paths
 
-set :run, false
+disable :run
 set :raise_errors, true
-set :environment, :production
+set :environment, (ENV['RACK_ENV'] || :development).to_sym
 set :app_file, 'app.rb'
-set :views, File.dirname(__FILE__) + "/views"
 
-log = File.new("log/sinatra.log", "a")
+log = File.new(logfile, "a")
 STDOUT.reopen(log)
 STDERR.reopen(log)
 
