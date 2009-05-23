@@ -19,7 +19,7 @@ get '/' do
   haml :index
 end
 
-get '/app.css' do
+get '/:stylesheet.css' do
   header 'Content-Type' => 'text/css; charset=utf-8'
-  sass :app
+  sass params[:stylesheet].to_sym
 end
