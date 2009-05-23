@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'sinatra'
+require 'Haml'
+require 'Sass'
 
 configure do
   Title = "sinatra fuse"
@@ -20,6 +22,6 @@ get '/' do
 end
 
 get '/:stylesheet.css' do
-  header 'Content-Type' => 'text/css; charset=utf-8'
+  headers 'Content-Type' => 'text/css; charset=utf-8'
   sass params[:stylesheet].to_sym
 end
