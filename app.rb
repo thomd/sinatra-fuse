@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'sinatra'
-require 'Haml'
-require 'Sass'
+require 'haml'
+require 'sass'
 
 configure do
   Title = "sinatra fuse"
