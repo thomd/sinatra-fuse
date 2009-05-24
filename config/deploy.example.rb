@@ -1,8 +1,11 @@
+default_run_options[:pty] = true
 
 set :user, "{SSH USERNAME}"
-set :domain, '{DOMAIN OF APPLICATION}'
+set :domain, "{DOMAIN OF APPLICATION}"
+set :host, "{DREAMHOST DOMAIN}"
+set :application, "sinatra-fuse"
 
-set :repository,  "#{user}@{DREAMHOST DOMAIN}:{PATH TO REPOSITORY}"
+set :repository,  "#{user}@#{host}:{PATH TO REPOSITORY}/#{application}.git"
 set :deploy_to, "/home/#{user}/#{domain}" 
 set :deploy_via, :remote_cache
 set :scm, 'git'
@@ -13,7 +16,7 @@ set :git_shallow_clone, 1
 set :use_sudo, false
 set :keep_releases, 3 
 
-server domain, :app, :web
+server domain, :app, :web, :db
 
 
 namespace :deploy do
@@ -26,7 +29,7 @@ end
 
 
 after 'deploy:setup', 'gems:install'
-after 'deploy:update_code', 'gems:symlink'
+after 'deploy:update_code', 'gems:symlink', 'gems:file_cleanup'
 
 namespace :gems do
 
@@ -44,4 +47,12 @@ namespace :gems do
     run "ln -nfs #{shared_path}/system/rack #{release_path}/vendor/rack"
     run "ln -nfs #{shared_path}/system/sinatra #{release_path}/vendor/sinatra"
   end
+
+  desc "delete some files which are not neccesary in production environment"
+  task :file_cleanup do
+    run "rm #{release_path}/README.md"
+    run "rm #{release_path}/Capfile"
+    run "rm #{release_path}/config/deploy.example.rb"
+  end
+
 end
