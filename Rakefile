@@ -1,9 +1,11 @@
-require 'rubygems'
-require 'rake'
+require "rubygems"
+require "rake"
+require "app"
 
-task :default => 'dummy'
+task :default => "test"
 
-desc "dummy task"
-task :fetch do
-  
+desc "run tests (default)"
+task :test do
+  require 'rake/runtest'
+  Rake.run_tests '**/*_test.rb'  
 end
