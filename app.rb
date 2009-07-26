@@ -9,7 +9,7 @@ configure do
 end
 
 before do
-  # Before Filter
+  content_type 'text/html', :charset => 'utf-8'
 end
 
 helpers do
