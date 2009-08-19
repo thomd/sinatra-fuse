@@ -2,7 +2,14 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'sass'
-
+require 'json'
+ 
+def json_get(route, options={}, &block)
+  get(route, options) do 
+    block.call.to_json
+  end
+end
+ 
 configure do
   Title = "sinatra fuse"
   set :sass, :style => :expanded
@@ -24,4 +31,8 @@ end
 get '/:stylesheet.css' do
   headers 'Content-Type' => 'text/css; charset=utf-8'
   sass params[:stylesheet].to_sym
+end
+
+json_get '/json' do
+  {"bar" => "baz", "foo" => "bar"}
 end
