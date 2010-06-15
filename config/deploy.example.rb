@@ -11,6 +11,7 @@ set :deploy_via, :remote_cache
 set :scm, 'git'
 set :scm_username, "{GIT USERNAME}"
 set :scm_password, "{GIT PASSWORD}"
+# set :scm_passphrase, Proc.new { Capistrano::CLI.password_prompt("Git Password for #{scm_user}:") }
 set :branch, "master"
 set :git_shallow_clone, 1
 set :use_sudo, false
